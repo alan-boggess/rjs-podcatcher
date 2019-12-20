@@ -78,7 +78,7 @@ function HomePage({ feedsStore }) {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  value={values.name || ""}
+                  value={""}
                   onChange={handleChange}
                   isInvalid={touched.name && errors.name}
                 />
@@ -92,7 +92,7 @@ function HomePage({ feedsStore }) {
                   type="text"
                   name="url"
                   placeholder="URL"
-                  value={values.url || ""}
+                  value={""}
                   onChange={handleChange}
                   isInvalid={touched.url && errors.url}
                 />
