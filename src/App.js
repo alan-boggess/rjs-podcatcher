@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import { createBrowserHistory as createHistory } from "history";
 import "./App.css";
 import TopBar from "./TopBar";
+import "./TopBar.css";
 import FeedPage from "./FeedPage";
 const history = createHistory();
 function App({ feedsStore }) {

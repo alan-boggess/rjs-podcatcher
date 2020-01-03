@@ -4,8 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import { withRouter } from "react-router-dom";
 function TopBar({ location }) {
   return (
-    <Navbar bg="primary" expand="lg" variant="dark">
-      <Navbar.Brand href="#home">RSS App</Navbar.Brand>
+    <Navbar bg="topbar" expand="lg" variant="dark">
+      <Navbar.Brand href="#home">AlBog's RSS App, CGI Edition</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

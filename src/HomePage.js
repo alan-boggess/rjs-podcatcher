@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./HomePage.css";
 import { observer } from "mobx-react";
 import Card from "react-bootstrap/Card";
-import { Formik } from "formik";
+import { Formik, validateYupSchema } from "formik";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -60,7 +60,7 @@ function HomePage({ feedsStore }) {
   return (
     <div className="home-page">
       <h1 className="center">RSS Feeds</h1>
-      <Formik validationSchema={schema} onSubmit={handleSubmit}>
+      <Formik initialValues={{ name: "", url: "" }} onSubmit={handleSubmit}>
         {({
           handleSubmit,
           handleChange,
@@ -78,7 +78,7 @@ function HomePage({ feedsStore }) {
                   type="text"
                   name="name"
                   placeholder="Name"
-                  value={""}
+                  value={values.name || ""}
                   onChange={handleChange}
                   isInvalid={touched.name && errors.name}
                 />
@@ -92,7 +92,7 @@ function HomePage({ feedsStore }) {
                   type="text"
                   name="url"
                   placeholder="URL"
-                  value={""}
+                  value={values.url || ""}
                   onChange={handleChange}
                   isInvalid={touched.url && errors.url}
                 />

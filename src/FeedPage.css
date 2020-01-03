@@ -1,8 +1,12 @@
+img {
+  max-width: 50%;
+  height: auto;
+}
 .feed-page {
     padding: 20px;
-  }
-  .title {
+}
+.title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-  }
+}

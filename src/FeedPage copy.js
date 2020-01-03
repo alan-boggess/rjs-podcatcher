@@ -7,14 +7,14 @@ import Button from "react-bootstrap/Button";
 import { getFeedListing } from "./requests";
 const querystring = require("querystring");
 
-// class FeedPage extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-
-//     }
+// var styles = StyleSheet.create({
+//   image: {
+//       flex: 1,
+//       width: 50,
+//       height: 50,
+//       resizeMode: 'contain'
 //   }
-// }
+// });
 
 function FeedPage({ feedsStore, location }) {
   const [initialized, setInitialized] = useState(false);
