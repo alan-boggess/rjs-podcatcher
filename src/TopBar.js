@@ -12,6 +12,7 @@ function TopBar({ location }) {
           <Nav.Link href="/" active={location.pathname == "/"}>
             Home
           </Nav.Link>
+          <Nav.Link href="/Search" active={location.pathname == "/Search"}>Search</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

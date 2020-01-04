@@ -6,12 +6,19 @@ import "./App.css";
 import TopBar from "./TopBar";
 import "./TopBar.css";
 import FeedPage from "./FeedPage";
+import SearchPage from "./SearchPage";
+
 const history = createHistory();
 function App({ feedsStore }) {
   return (
     <div className="App">
       <Router history={history}>
         <TopBar />
+        <Route 
+          path="/Search"
+          exact
+          component={props => <SearchPage {...props} feedsStore={feedsStore} />}
+        />
         <Route
           path="/"
           exact
