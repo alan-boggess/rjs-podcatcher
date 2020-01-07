@@ -15,6 +15,7 @@ function FeedPage({ feedsStore, location }) {
   const getListings = async url => {
     try {
       const response = await getFeedListing(url);
+      debugger;
       setListings(response.data.items);
       setData(response.data.feed);
     } catch (ex) {
@@ -40,12 +41,18 @@ function FeedPage({ feedsStore, location }) {
       {listings.map((l, i) => {
         return (
           <Card key={i}>
-            <Card.Title className="card-title">{l.title}</Card.Title>
-            <Card.Body>
-              {l.description !== l.content ? <p>{l.description}</p> : "" }
+            <Card.Title className="card-title">
+              {l.title}
+              <p/>
               <Button variant="primary" onClick={openLink.bind(this, l.link)}>
                 Open
-              </Button>{" "}
+              </Button>
+            </Card.Title>
+            <Card.Body className="card-body">
+              {l.description !== l.content ? <p>{l.description}</p> : "" }
+              <Button variant="secondary" onClick={openLink.bind(this, l.enclosure.link)}>
+                Download
+              </Button>
               {
                 /<\/?[a-z][\s\S]*>/i.test(l.content)
                 ? <div dangerouslySetInnerHTML={{ __html: l.content }}/> 

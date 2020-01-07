@@ -11,6 +11,7 @@ import * as yup from "yup";
 import {searchTermTypes} from "./itunesApi"
 import { getItunesSearchResults } from "./itunesApi";
 import { PassThrough } from "stream";
+import { getFeedListing } from "./requests";
 
 const querystring = require("querystring");
 const schema = yup.object({
@@ -50,9 +51,15 @@ class SearchPage extends React.Component {
             console.log(values);
             var searchResults = await getItunesSearchResults(values['field0'])
             console.log(searchResults);
-            searchResults.results
-            ? this.setState({searchResults: searchResults.results})
-            : console.log("No results found");
+            if (searchResults.results) {
+              for (var f in searchResults.results){
+                var feed = await getFeedListing(searchResults.results[f].feedUrl);
+                searchResults.results[f].description = feed.data.feed.description;
+              }
+              this.setState({searchResults: searchResults.results})
+            } else {
+              console.log("No results found");
+            }
             console.log(this.state.searchResults);
             //localStorage.setItem("feeds", JSON.stringify(feedsStore.feeds));
           }}>
@@ -83,9 +90,18 @@ class SearchPage extends React.Component {
           <div>
           {
           this.state.searchResults
-          ? this.state.searchResults.map(r => {
+          ? this.state.searchResults.map( (r, i) => {
             return (
-              <p>{r.trackName}</p>
+              <Card key={i}>
+                <Card.Title className="card-title">
+                  <img src={r.artworkUrl60}/>
+                  {r.trackName}
+                </Card.Title>
+                <Card.Body className="card-body">
+                  <h3>URL: {r.feedUrl}</h3>
+                  {r.description}
+                </Card.Body>
+              </Card>
             );
           })
           : "Results Pending"

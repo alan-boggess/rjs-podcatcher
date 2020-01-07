@@ -1,6 +1,6 @@
 const axios = require("axios");
 const itunesBaseUrl = "https://itunes.apple.com/search?term=";
-const itunesQueryParams = "&country=US&media=podcast&limit=50"
+const itunesQueryParams = "&country=US&media=podcast&limit=10"
 
 export const getItunesSearchResults = async searchTerm => {
   try {
