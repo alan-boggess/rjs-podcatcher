@@ -9,10 +9,10 @@ function TopBar({ location }) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/" active={location.pathname == "/"}>
+          <Nav.Link href="/" active={location.pathname === "/"}>
             Home
           </Nav.Link>
-          <Nav.Link href="/Search" active={location.pathname == "/Search"}>Search</Nav.Link>
+          <Nav.Link href="/Search" active={location.pathname === "/Search"}>Search</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

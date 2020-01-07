@@ -42,7 +42,7 @@ function FeedPage({ feedsStore, location }) {
           <Card key={i}>
             <Card.Title className="card-title">{l.title}</Card.Title>
             <Card.Body>
-              {l.description != l.content ? <p>{l.description}</p> : "" }
+              {l.description !== l.content ? <p>{l.description}</p> : "" }
               <Button variant="primary" onClick={openLink.bind(this, l.link)}>
                 Open
               </Button>{" "}
