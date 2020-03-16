@@ -24,6 +24,7 @@ function HomePage({ feedsStore }) {
   const [initialized, setInitialized] = useState(false);
   const [redirectToFeed, setRedirectToFeed] = useState(false);
   const handleSubmit = async evt => {
+    debugger;
     const isValid = await schema.validate(evt);
     if (!isValid) {
       return;
@@ -107,10 +108,14 @@ function HomePage({ feedsStore }) {
         )}
       </Formik>
       <br />
-      {feedsStore.feeds.map((f, i) => {
+      <div className="container">
+      {feedsStore.feeds.map( (f, i) => {
         return (
           <Card key={i}>
-            <Card.Title className="card-title">{f.name}</Card.Title>
+            <Card.Title className="card-title">
+              { f.imageSrc && <img src={f.imageSrc} /> }
+              {f.name}
+            </Card.Title>
             <Card.Body>
               <p>{f.url}</p>
               <Button
@@ -126,6 +131,7 @@ function HomePage({ feedsStore }) {
           </Card>
         );
       })}
+      </div>
     </div>
   );
 }
