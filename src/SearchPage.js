@@ -27,15 +27,39 @@ const schema = yup.object({
 
 const enumerateSearchTypes = [];
 
+const subscribe = (store, result) => {
+  //debugger;
+  if (store.feeds)
+  {
+    store.feeds.push( {
+       name: result.trackName,
+       url: result.feedUrl,
+       imageSrc: result.artworkUrl30
+      });
+    localStorage.setItem("feeds", JSON.stringify(store.feeds));
+  }
+}
+
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      initialized: true,
       searchTerms: [{
         type: searchTermTypes.TITLE,
         term: ""
       }],
       searchResults: []
+    }
+    if (!this.initialized)
+    {
+      let rssFeeds = [];
+      try {
+        rssFeeds = JSON.parse(localStorage.getItem("feeds"));
+        if (Array.isArray(rssFeeds)) {
+          this.props.feedsStore.setFeeds(rssFeeds);
+        }
+      } catch (ex) {}
     }
   }
 
@@ -47,14 +71,20 @@ class SearchPage extends React.Component {
           <Card.Title>
           <Formik initialValues={{ field0: "" }}
           onSubmit={async values => {
-            debugger;
+            //debugger;
             console.log(values);
             var searchResults = await getItunesSearchResults(values['field0'])
             console.log(searchResults);
             if (searchResults.results) {
               for (var f in searchResults.results){
-                var feed = await getFeedListing(searchResults.results[f].feedUrl);
-                searchResults.results[f].description = feed.data.feed.description;
+                try {
+                  var feed = await getFeedListing(searchResults.results[f].feedUrl);
+                  if (feed)
+                    searchResults.results[f].description = feed.data.feed.description;
+                }
+                catch
+                {
+                }
               }
               this.setState({searchResults: searchResults.results})
             } else {
@@ -96,6 +126,14 @@ class SearchPage extends React.Component {
                 <Card.Title className="card-title">
                   <img src={r.artworkUrl60}/>
                   {r.trackName}
+                  <Button
+                      variant="primary"
+                      onClick={
+                        subscribe.bind(this, this.props.feedsStore, r)
+                      }
+                    >
+                      Subscribe
+                    </Button>
                 </Card.Title>
                 <Card.Body className="card-body">
                   <h3>URL: {r.feedUrl}</h3>
